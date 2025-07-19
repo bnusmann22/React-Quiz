@@ -1,4 +1,4 @@
-import reactLOGO from './asset/reactLG.png';
+import reactLOGO from '../asset/reactLG.png';
 function Header() {
   return (
     <header className='app-header'>

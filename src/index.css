@@ -27,6 +27,10 @@ body {
   color: var(--color-light);
   background-color: var(--color-darkest);
   padding: 3.2rem;
+
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
 }
 
 .app {
@@ -41,7 +45,7 @@ body {
 }
 
 .app-header {
-  width: 66rem;
+  width: 50rem;
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
@@ -58,7 +62,7 @@ body {
 }
 
 img {
-  width: 14rem;
+  width: 10rem;
 }
 
 h1 {

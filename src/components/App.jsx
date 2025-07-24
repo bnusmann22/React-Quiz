@@ -6,6 +6,7 @@ import MAIN from "./MAINo"
 import StartScreen from "./StartScreen"
 import NextButton from "./NextButton"
 import Question from "./Question"
+import Progress from "./Progress"
 const initialState = {
   questions: [],
 
@@ -56,11 +57,12 @@ function reducer(state, action){
 }
 
 export default function App(){
-  const [{questions, status, index, answer}, dispatch] = useReducer(reducer , initialState)
+  const [{questions, status, index, answer, points}, dispatch] = useReducer(reducer , initialState)
 
   const numQuestions = questions.length
+  const maxPossiblePoints = questions.reducer((prev, cur) =>  prev + cur.points, 0)
   useEffect(() => {
-    fetch("http://localhost:8000/questions")
+    fetch("http://localhost:9000/questions")
     .then(res => res.json())
     .then(data => dispatch({type: "dataRecieved", payload: data}))
     .catch((err) => dispatch({type: "dataFailed"}))
@@ -74,16 +76,28 @@ export default function App(){
           <MAIN>
             {status === "loading" && <Loader />}
             {status === "Error" && <Error />}
-            {status === "ready" && <StartScreen  numQuestions={numQuestions} dispatch={dispatch}/>}
+            {status === "ready" && 
+              <StartScreen  
+                numQuestions={numQuestions} 
+                dispatch={dispatch}
+              />
+            }
             {status === "start" && 
               <>
+              <Progress index={index} 
+              numQuestions={numQuestions}  
+              maxPossiblePoints={maxPossiblePoints}  
+              points={points}  />
               <Question 
                 questions={questions[index]}
                 answer={answer} 
                 dispatch={dispatch}
               />
 
-              <NextButton  dispatch={dispatch} answer={answer}/>
+              <NextButton  
+                dispatch={dispatch} 
+                answer={answer}
+              />
               </>
             }
           </MAIN>

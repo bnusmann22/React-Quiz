@@ -60,7 +60,7 @@ export default function App(){
   const [{questions, status, index, answer, points}, dispatch] = useReducer(reducer , initialState)
 
   const numQuestions = questions.length
-  const maxPossiblePoints = questions.reducer((prev, cur) =>  prev + cur.points, 0)
+  const maxPossiblePoints = questions.reduce((prev, cur) =>  prev + cur.points, 0)
   useEffect(() => {
     fetch("http://localhost:9000/questions")
     .then(res => res.json())
